@@ -1,11 +1,13 @@
 import React from 'react'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 export default function ImageContainer({tag, url, index, handleDragEnd, handleDragEnter, handleDragStart}) {
-  
+  const { isAuth } = useContext(AuthContext)
   return (
     <div 
-    className='img-container'
-    draggable="true"
+    className={isAuth ? 'img-container draggable' : 'img-container'}
+    draggable={isAuth ? "true" : "false"}
     onDragStart={(e) => handleDragStart(e, index)}
     onDragEnter={(e) => handleDragEnter(e, index)}
     onDragEnd={(e) => handleDragEnd(e, index)}

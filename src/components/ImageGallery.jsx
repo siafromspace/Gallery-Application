@@ -1,8 +1,9 @@
 import React from 'react'
 import ImageContainer from './ImageContainer'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 export default function ImageGallery({setData, data, searchInput}) {
+  const [isDragging, setIsDragging] = useState(false);
 
   const dragItem = useRef(null)
     const dragOverItem = useRef(null)
