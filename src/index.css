@@ -194,9 +194,9 @@ form button:hover {
         grid-template-columns: 1fr;
     }
     .img-container {
-        width: 250px;
+        width: 100%;
     }
     .img-container .image {
-        width: 250px;
+        width: 100%;
     }
 }
