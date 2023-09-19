@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Loader from "./components/Loader.jsx";
 import { imgDB,txtDB } from "./firebase.js";
 import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -11,7 +12,8 @@ function App(){
     // const [txt, setTxt] = useState('')
     // const [img, setImg] = useState('')
     const [data, setData] = useState([])
-
+    const [isLoading, setIsLoading] = useState(true)
+    const [searchInput, setSearchInput] = useState('')
 
     // const handleUpload = (e) => {
     //     console.log(e.target.files[0])
@@ -38,13 +40,16 @@ function App(){
     }
 
     useEffect(()=>{
-        getData()
+        setTimeout(() => {
+          getData()
+          setIsLoading(false)
+        }, 5000)
 }, [])
 
     return(
       <>
-        <Header />
-        <ImageGallery data={data} />
+        <Header searchInput={searchInput} setSearchInput={setSearchInput} />
+        {isLoading ? <Loader /> : <ImageGallery data={data} searchInput={searchInput}/>}
       </>
     )
 }
