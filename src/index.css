@@ -98,6 +98,10 @@ main {
     justify-content: center;
     align-items: center;
 }
+/* .drag-over {
+    display: block;
+    border: 5px solid pink;
+} */
 
 @media (max-width: 530px) {
     header .desktop input {

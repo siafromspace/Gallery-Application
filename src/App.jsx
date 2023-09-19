@@ -49,7 +49,7 @@ function App(){
     return(
       <>
         <Header searchInput={searchInput} setSearchInput={setSearchInput} />
-        {isLoading ? <Loader /> : <ImageGallery data={data} searchInput={searchInput}/>}
+        {isLoading ? <Loader /> : <ImageGallery data={data} setData={setData} searchInput={searchInput}/>}
       </>
     )
 }
