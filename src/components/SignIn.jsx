@@ -18,21 +18,27 @@ export default function SignIn() {
           .then((cred) => {
             alert('Sign In successful.')
             cred.user && setIsAuth(true)
+            setError('')
             navigate("/");
           })
           .catch((err) => {
             console.log(err.message)
+            setError(err.message)
           })
     }
+
+    const errorMessage = error.slice(22).slice(0, -2).replace(/-/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase())
+
   return (
     <div className='form-container'>
         <form>
         <h1>Sign In</h1>
-        <div className="form-field">
+        <p className='error-message'>{errorMessage}</p>
+        <div className={error ? 'form-field error-field' : 'form-field'}>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
-        <div className='form-field'>
+        <div className={error ? 'form-field error-field' : 'form-field'}>
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>

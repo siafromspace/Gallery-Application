@@ -3,7 +3,10 @@ import ImageContainer from './ImageContainer'
 import { useRef, useState } from 'react'
 
 export default function ImageGallery({setData, data, searchInput}) {
-  const [isDragging, setIsDragging] = useState(false);
+  
+  const filteredData = data.filter(item =>
+    item.txtVal.toLowerCase().includes(searchInput.toLowerCase())
+  );
 
   const dragItem = useRef(null)
     const dragOverItem = useRef(null)
@@ -15,17 +18,13 @@ export default function ImageGallery({setData, data, searchInput}) {
         dragOverItem.current = index
     }
     const handleDragEnd = (e, index) => {
-        let copyData = [...data]
+        let copyData = [...filteredData]
         const dragItemContent = copyData.splice(dragItem.current, 1)[0]
         copyData.splice(dragOverItem.current, 0, dragItemContent)
         dragItem.current = null
         dragOverItem.current = null
         setData(copyData)
     }
-
-  const filteredData = data.filter(item =>
-    item.txtVal.toLowerCase().includes(searchInput.toLowerCase())
-  );
 
   return (
     <main>
