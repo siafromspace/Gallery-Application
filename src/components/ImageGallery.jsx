@@ -1,36 +1,36 @@
 import React from 'react'
 import ImageContainer from './ImageContainer'
 import { useRef, useState } from 'react'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 export default function ImageGallery({setData, data, searchInput}) {
-  
+
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(data);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setData(items)
+  }
   const filteredData = data.filter(item =>
     item.txtVal.toLowerCase().includes(searchInput.toLowerCase())
   );
 
-  const dragItem = useRef(null)
-    const dragOverItem = useRef(null)
-
-    const handleDragStart = (e, index) => {
-        dragItem.current = index
-    }
-    const handleDragEnter = (e, index) => {
-        dragOverItem.current = index
-    }
-    const handleDragEnd = (e, index) => {
-        let copyData = [...filteredData]
-        const dragItemContent = copyData.splice(dragItem.current, 1)[0]
-        copyData.splice(dragOverItem.current, 0, dragItemContent)
-        dragItem.current = null
-        dragOverItem.current = null
-        setData(copyData)
-    }
-
   return (
-    <main>
-      {filteredData.map((item, i) => (
-      <ImageContainer key={item.txtVal} index={i} tag={item.txtVal} url={item.imgUrl} handleDragEnd={handleDragEnd} handleDragEnter={handleDragEnter} handleDragStart={handleDragStart}  />
-      ))}
-    </main>
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <Droppable droppableId='gallery'>
+        {
+          (provided) => (
+            <main {...provided.droppableProps} ref={provided.innerRef}>
+            {filteredData.map((item, i) => (
+            <ImageContainer key={item.txtVal} index={i} id={item.txtVal} tag={item.txtVal} url={item.imgUrl} 
+            />
+            ))}
+            {provided.placeholder}
+        </main>
+          )
+        }
+      </Droppable>
+    </DragDropContext>
   )
 }

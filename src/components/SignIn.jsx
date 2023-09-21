@@ -10,7 +10,7 @@ export default function SignIn() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const navigate = useNavigate();
-    const { setIsAuth } = useContext(AuthContext)
+    const { isAuth, setIsAuth } = useContext(AuthContext)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -18,6 +18,7 @@ export default function SignIn() {
           .then((cred) => {
             alert('Sign In successful.')
             cred.user && setIsAuth(true)
+            localStorage.setItem('isAuth', JSON.stringify(true))
             setError('')
             navigate("/");
           })

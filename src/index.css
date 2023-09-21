@@ -58,6 +58,7 @@ main {
     padding: 1rem;
     justify-items: center;
     height: 100%;
+    position: relative;
 }
 .draggable {
     cursor: move;
@@ -169,6 +170,17 @@ form button:hover {
 .error-message {
     color: #FF0000;
   }
+.logout {
+    background-color: #202024;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+}
+.logout:hover {
+    background-color: #8D8D99;
+}
 @media (max-width: 780px) {
     form {
       width: 100%; 
